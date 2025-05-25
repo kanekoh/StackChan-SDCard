@@ -1,6 +1,7 @@
 #pragma once
 #include <Arduino.h>
 #include <vector>
+#include <ArduinoJson.h>
 
 bool initSDCard();
 bool readLinesFromSD(const char* path, std::vector<String>& lines);
