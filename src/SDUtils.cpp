@@ -11,6 +11,26 @@ bool initSDCard() {
   return true;
 }
 
+bool initSDCardWithRetry(int maxAttempts = 3, int delayMs = 500) {
+  for (int attempt = 1; attempt <= maxAttempts; ++attempt) {
+    Serial.printf("[SD INIT] Attempt %d/%d...\n", attempt, maxAttempts);
+    if (initSDCard()) {
+      Serial.println("[SD INIT] Success");
+      return true;
+    }
+    Serial.println("[SD INIT] Failed. Retrying...");
+    delay(delayMs);
+  }
+  Serial.println("[SD INIT] All attempts failed.");
+  return false;
+}
+
+bool retrySDCardInit() {
+  SD.end();  // 念のためアンマウント
+  delay(100);
+  return initSDCard();  // 再初期化試行
+}
+
 bool readLinesFromSD(const char* path, std::vector<String>& lines) {
   lines.clear();
   File file = SD.open(path, FILE_READ);
