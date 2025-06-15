@@ -32,7 +32,7 @@ bool readLinesFromSD(const char* path, std::vector<String>& lines) {
 }
 
 
-bool writeJsonToSD(const char* path, const DynamicJsonDocument& doc) {
+bool writeJsonToSD(const char* path, const JsonDocument& doc) {
   File file = SD.open(path, FILE_WRITE);
   if (!file) {
     Serial.printf("Failed to open file for writing: %s\n", path);
@@ -49,7 +49,7 @@ bool writeJsonToSD(const char* path, const DynamicJsonDocument& doc) {
   return true;
 }
 
-bool readJsonFromSD(const char* path, DynamicJsonDocument& doc) {
+bool readJsonFromSD(const char* path, JsonDocument& doc) {
   File file = SD.open(path, FILE_READ);
   if (!file) {
     Serial.printf("Failed to open file for reading: %s\n", path);
